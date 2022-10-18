@@ -35,8 +35,8 @@ export class UserService {
     console.log(user)
     return user
   }
-
-  test() {
-    return 'hello'
+  async getAllUsersInfo() {
+    return await this.prisma.user.findMany()
   }
+
 }
