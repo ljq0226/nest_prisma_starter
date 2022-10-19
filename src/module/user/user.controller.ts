@@ -24,7 +24,7 @@ export class UserController {
   @ApiOperation({ summary: '获取登录用户信息' })
   @ApiBearerAuth()
   @Auth()
-  @Get()
+  @Get('userinfo')
   getUserInfo(@Req() req) {
     console.log(req.user)
     return req.user
@@ -33,7 +33,8 @@ export class UserController {
   @ApiOperation({ summary: '获取所有用户信息' })
   @ApiBearerAuth()
   @Admin()
-  @Get('userinfo')
+  // @Auth()
+  @Get('allUserinfo')
   getAllUsersInfo() {
     return this.userService.getAllUsersInfo()
   }

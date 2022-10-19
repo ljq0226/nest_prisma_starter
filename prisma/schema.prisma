@@ -12,16 +12,35 @@ datasource db {
 
 model User {
   id       Int    @id @default(autoincrement())
-  username String
+  username String @unique
   password String
-  posts    Post[]
+  avatar   String @default("")
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String?
+  contentHtml String?
+  summary     String?
+  coverUrl    String?   @default("")
+  count       Int       @default(0)
+  isRecommend Boolean?  @default(false)
+  tags        Tag[]
+  Category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
 }
